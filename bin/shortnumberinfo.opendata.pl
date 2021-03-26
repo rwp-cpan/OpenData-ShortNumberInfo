@@ -18,6 +18,6 @@ say $shortnumberinfo -> $_() for @methods;;
 =pod
 
 https://en.wikipedia.org/wiki/Azerbaijani_name#Most_popular_names_in_2010-2015_period
-https://api.opendata.az/v1/json/home/MeaningOfName/yusif?pretty
+https://api.opendata.az/v1/json/nrytn/ShortNumberInfo/169?pretty
 
 =cut
