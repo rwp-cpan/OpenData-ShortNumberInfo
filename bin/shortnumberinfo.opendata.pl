@@ -1,19 +1,11 @@
 use v5.32;
 use lib "$ENV{HOME}/var/git/OpenData-ShortNumberInfo/lib";
-use Data::Dumper qw();
+# use Data::Dumper qw();
 use OpenData::ShortNumberInfo;
 
-my $shortnumberinfo = OpenData::ShortNumberInfo -> new('169');
-my @methods = qw(
-  status
-  status_message
-  name
-  tariff_baku
-  tariff_region
-);
+my $shortnumberinfo = OpenData::ShortNumberInfo -> new($ARGV[0]);
 
-say $shortnumberinfo -> $_() for @methods;;
-# die Data::Dumper::Dumper $meaningofname;
+say $shortnumberinfo -> name();
 
 =pod
 
