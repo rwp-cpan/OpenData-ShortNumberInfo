@@ -1,7 +1,10 @@
 #! /usr/bin/env perl
 
+# ABSTRACT: Perl utility to interact with OpenData ShortNumberInfo web service
+
+# PODNAME: shortnumberinfo
+
 use v5.36;
-use lib '/home/regular/git/OpenData-ShortNumberInfo/lib';
 use OpenData::ShortNumberInfo;
 
 my $shortnumberinfo =
