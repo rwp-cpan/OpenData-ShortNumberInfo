@@ -1,0 +1,6 @@
+Revision history for OpenData-ShortNumberInfo
+
+{{$NEXT}}
+    - Use JSON::PP
+    - Use @RWP bundle
+    - Add Changes
