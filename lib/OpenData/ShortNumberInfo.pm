@@ -18,7 +18,7 @@ use Object::Pad;
 class OpenData::ShortNumberInfo {
 	use HTTP::Tiny;
 	use URI;
-	use JSON;
+	use JSON::PP;
 
 	field $number :param //= 103;
 
