@@ -10,4 +10,4 @@ use OpenData::ShortNumberInfo;
 my $shortnumberinfo =
 	OpenData::ShortNumberInfo -> new( number => $ARGV[0] );
 
-say $shortnumberinfo -> name();
+say $shortnumberinfo -> name;

@@ -1,6 +1,12 @@
 Revision history for OpenData-ShortNumberInfo
 
 {{$NEXT}}
-    - Use JSON::PP
-    - Use @RWP bundle
-    - Add Changes
+  - Consistent code style
+  - Correct pod
+  - Further simplify dist.ini
+  - Make number a reader method
+
+0.230380  2023-02-07 23:30:38+04:00 Asia/Baku
+  - Use JSON::PP
+  - Use @RWP bundle
+  - Add Changes

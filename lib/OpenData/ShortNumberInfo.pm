@@ -8,7 +8,7 @@ package OpenData::ShortNumberInfo;
   my $shortnumberinfo =
 	  OpenData::ShortNumberInfo -> new( number => 101 );
 
-  say $shortnumberinfo -> name();
+  say $shortnumberinfo -> name;
 
 =cut
 
@@ -20,15 +20,13 @@ class OpenData::ShortNumberInfo {
 	use URI;
 	use JSON::PP;
 
-	field $number :param //= 103;
-
-	# TODO: accessor $name
+	field $number :param :reader //= 103;
 
 =method name
 
-Take a 3 digit phone number and return the organization it belongs to
-Prints a message to standard error stream exiting with the status code of 2
-if there's no organization for the number specified
+Takes a 3 digit phone number, and returns the organization name it belongs to.
+
+Prints a message to standard error stream exiting with the status code of 2 if there's no organization found for the number specified.
 
 =cut
 
@@ -44,11 +42,11 @@ if there's no organization for the number specified
 		);
 
 		# Issue HTTP request to get the web page
-		my $http = HTTP::Tiny -> new();
+		my $http = HTTP::Tiny -> new;
 		my $response = $http -> get( $uri ); # RV: HR
 
 		# Convert JSON from HTTP response into Perl hash
-		my $json = JSON -> new();
+		my $json = JSON -> new;
 		my $content = $json -> decode( $response -> {content} );
 
 		unless ( defined( $content -> {StatusMessage} ) ) {
@@ -60,10 +58,3 @@ if there's no organization for the number specified
 		}
 	}
 }
-
-
-=head1 SEE ALSO
-
-=for :list
-* Your::Module
-* Your::Package
