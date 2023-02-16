@@ -12,15 +12,57 @@ package OpenData::ShortNumberInfo;
 
 =cut
 
-use v5.36;
-use Object::Pad;
+use v5.37.9;
+use experimental qw( class builtin try );
 
 class OpenData::ShortNumberInfo {
-	use HTTP::Tiny;
-	use URI;
-	use JSON::PP;
+  use HTTP::Tiny;
+  use URI;
+  use JSON::PP;
 
-	field $number :param :reader //= 103;
+  # @format:off
+  field $number :
+  param //= 103;
+  # @format:on
+
+  method number ( ) {
+    return $number;
+  }
+
+=attr number
+
+Returns the three digit phone number the object was constructed with
+
+=cut
+
+  method name ( ) {
+    # Construct API URL
+    my $uri = URI -> new( 'https://api.opendata.az' );
+    $uri -> path_segments(
+      'v1' ,              # version
+      'json' ,            # format
+      'nrytn' ,           # organization
+      'ShortNumberInfo' , # service
+      $number             # parameter
+    );
+
+    # Issue HTTP request to get the web page
+    my $http = HTTP::Tiny -> new;
+    my $response = $http -> get( $uri ); # RV: HR
+
+    # Convert JSON from HTTP response into Perl hash
+    my $json = JSON::PP -> new;
+    my $content = $json -> decode( $response -> {content} );
+
+    unless ( defined $content -> {StatusMessage} ) {
+      return $content -> {Response} -> [0] -> {Name};
+    }
+    else {
+      STDERR -> say( $content -> {StatusMessage} );
+      exit 2;
+
+    }
+  }
 
 =method name
 
@@ -30,31 +72,4 @@ Prints a message to standard error stream exiting with the status code of 2 if t
 
 =cut
 
-	method name ( $number ) {
-		# Construct API URL
-		my $uri = URI -> new( 'https://api.opendata.az' );
-		$uri -> path_segments(
-			'v1',              # version
-			'json',            # format
-			'nrytn',           # organization
-			'ShortNumberInfo', # service
-			$number            # parameter
-		);
-
-		# Issue HTTP request to get the web page
-		my $http = HTTP::Tiny -> new;
-		my $response = $http -> get( $uri ); # RV: HR
-
-		# Convert JSON from HTTP response into Perl hash
-		my $json = JSON -> new;
-		my $content = $json -> decode( $response -> {content} );
-
-		unless ( defined( $content -> {StatusMessage} ) ) {
-			return $content -> {Response} -> [0] -> {Name};
-		}
-		else {
-			STDERR -> say( $content -> {StatusMessage} );
-			exit 2;
-		}
-	}
 }
